@@ -128,8 +128,11 @@ export default function Home() {
         message: "Batch uploaded successfully.",
       });
       setCsvFile(null);
-      (event.currentTarget.querySelector('input[type="file"]') as HTMLInputElement).value =
-        "";
+      // Reset file input safely
+      const fileInput = event.currentTarget?.querySelector('input[type="file"]') as HTMLInputElement | null;
+      if (fileInput) {
+        fileInput.value = "";
+      }
     } catch (error) {
       setBatchStatus({
         status: "error",
