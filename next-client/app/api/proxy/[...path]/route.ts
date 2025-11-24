@@ -20,7 +20,7 @@ type Method = (typeof SUPPORTED_METHODS)[number];
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const handler = async (request: NextRequest, context: { params: { path?: string[] } }) => {
+const handler = async (request: NextRequest, context: { params: Promise<{ path: string[] }> }) => {
   const method = request.method.toUpperCase() as Method;
   if (!SUPPORTED_METHODS.includes(method)) {
     return NextResponse.json(
@@ -29,7 +29,8 @@ const handler = async (request: NextRequest, context: { params: { path?: string[
     );
   }
 
-  const targetPath = context.params.path?.join("/") ?? "";
+  const params = await context.params;
+  const targetPath = params.path?.join("/") ?? "";
   const sanitizedBase = API_BASE_URL.replace(/\/$/, "");
   const suffix = targetPath ? `/${targetPath}` : "";
   const targetUrl = `${sanitizedBase}${suffix}${request.nextUrl.search}`;
