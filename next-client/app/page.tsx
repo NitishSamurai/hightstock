@@ -25,6 +25,16 @@ type ProductResponse = {
   title?: string;
   brand?: string;
   description?: string;
+  model?: string;
+  color?: string;
+  size?: string;
+  dimension?: string;
+  weight?: string;
+  category?: string;
+  currency?: string;
+  lowest_recorded_price?: number;
+  highest_recorded_price?: number;
+  msrp?: number;
   images?: string[];
   best_image?: string;
   cached?: boolean;
@@ -277,10 +287,65 @@ export default function Home() {
                 <div>
                   <p className={styles.productLabel}>Product</p>
                   <h3>{searchStatus.data.title ?? "Untitled"}</h3>
+                  
+                  {/* Basic Info */}
                   <p className={styles.productMeta}>
-                    UPC {searchStatus.data.upc} ·{" "}
-                    {searchStatus.data.brand ?? "Unknown brand"}
+                    UPC: {searchStatus.data.upc}
+                    {searchStatus.data.brand && ` · Brand: ${searchStatus.data.brand}`}
+                    {searchStatus.data.model && ` · Model: ${searchStatus.data.model}`}
                   </p>
+
+                  {/* Pricing Information */}
+                  {searchStatus.data.msrp && (
+                    <div className={styles.productMeta}>
+                      <strong>MSRP:</strong> {searchStatus.data.currency || "$"}{searchStatus.data.msrp.toFixed(2)}
+                      {searchStatus.data.lowest_recorded_price && searchStatus.data.highest_recorded_price && (
+                        <span> (Price Range: {searchStatus.data.currency || "$"}{searchStatus.data.lowest_recorded_price.toFixed(2)} - {searchStatus.data.currency || "$"}{searchStatus.data.highest_recorded_price.toFixed(2)})</span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Product Attributes */}
+                  {(searchStatus.data.color || searchStatus.data.size || searchStatus.data.weight || searchStatus.data.dimension) && (
+                    <div className={styles.productMeta}>
+                      {searchStatus.data.color && <span><strong>Color:</strong> {searchStatus.data.color}</span>}
+                      {searchStatus.data.color && (searchStatus.data.size || searchStatus.data.weight || searchStatus.data.dimension) && " · "}
+                      {searchStatus.data.size && <span><strong>Size:</strong> {searchStatus.data.size}</span>}
+                      {searchStatus.data.size && (searchStatus.data.weight || searchStatus.data.dimension) && " · "}
+                      {searchStatus.data.weight && <span><strong>Weight:</strong> {searchStatus.data.weight}</span>}
+                      {searchStatus.data.weight && searchStatus.data.dimension && " · "}
+                      {searchStatus.data.dimension && <span><strong>Dimensions:</strong> {searchStatus.data.dimension}</span>}
+                    </div>
+                  )}
+
+                  {/* Category */}
+                  {searchStatus.data.category && (
+                    <p className={styles.productMeta}>
+                      <strong>Category:</strong> {searchStatus.data.category}
+                    </p>
+                  )}
+
+                  {/* Description */}
+                  {searchStatus.data.description && (
+                    <p className={styles.productMeta}>
+                      <strong>Description:</strong> {searchStatus.data.description}
+                    </p>
+                  )}
+
+                  {/* Additional Images Count */}
+                  {searchStatus.data.images && searchStatus.data.images.length > 0 && (
+                    <p className={styles.productMeta}>
+                      <strong>Images:</strong> {searchStatus.data.images.length} available
+                      {searchStatus.data.best_image && " (Best image selected)"}
+                    </p>
+                  )}
+
+                  {/* Cache Status */}
+                  {searchStatus.data.cached !== undefined && (
+                    <p className={styles.productMeta}>
+                      <strong>Source:</strong> {searchStatus.data.cached ? "Cached" : "Fresh"}
+                    </p>
+                  )}
                 </div>
                 {searchStatus.data.best_image && (
                   // eslint-disable-next-line @next/next/no-img-element

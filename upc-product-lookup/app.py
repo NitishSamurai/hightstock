@@ -283,11 +283,32 @@ async def format_product_data(upc, data, from_cache=False):
                 # Create full URL for the best image
                 best_image_path = urljoin(base_url, str(best_image_disk_path).replace('\\', '/'))
     
+    # Extract price information
+    lowest_price = item.get('lowest_recorded_price')
+    highest_price = item.get('highest_recorded_price')
+    
+    # Calculate MSRP (use highest recorded price as MSRP, or average if both available)
+    msrp = None
+    if highest_price:
+        msrp = highest_price
+    elif lowest_price and highest_price:
+        msrp = (lowest_price + highest_price) / 2
+    
     return {
         'upc': upc,
         'title': item.get('title', ''),
         'brand': item.get('brand', ''),
         'description': item.get('description', ''),
+        'model': item.get('model', ''),
+        'color': item.get('color', ''),
+        'size': item.get('size', ''),
+        'dimension': item.get('dimension', ''),
+        'weight': item.get('weight', ''),
+        'category': item.get('category', ''),
+        'currency': item.get('currency', ''),
+        'lowest_recorded_price': lowest_price,
+        'highest_recorded_price': highest_price,
+        'msrp': msrp,
         'images': item.get('images', []),
         'best_image': best_image_path,
         'cached': from_cache
