@@ -48,7 +48,7 @@ const handler = async (request: NextRequest, context: { params: Promise<{ path: 
     redirect: "manual",
   };
 
-  if (method !== "GET" && method !== "HEAD") {
+  if (method !== "GET") {
     init.body = request.body;
     if (init.body && typeof (init.body as ReadableStream<Uint8Array>).getReader === "function") {
       init.duplex = "half";
