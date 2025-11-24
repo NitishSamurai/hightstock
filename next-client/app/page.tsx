@@ -301,20 +301,23 @@ export default function Home() {
   );
 }
 
-type StatusPanelProps = FetchState<unknown> & {
+type StatusPanelProps = {
   title: string;
+  state: Status;
+  message?: string;
+  data?: unknown;
 };
 
-function StatusPanel({ title, status, message, data }: StatusPanelProps) {
-  if (status === "idle") {
+function StatusPanel({ title, state, message, data }: StatusPanelProps) {
+  if (state === "idle") {
     return null;
   }
 
   return (
-    <div className={styles.statusPanel} data-state={status}>
+    <div className={styles.statusPanel} data-state={state}>
       <div className={styles.statusHeader}>
         <p>{title}</p>
-        <span>{status}</span>
+        <span>{state}</span>
       </div>
       {message ? <p className={styles.statusMsg}>{message}</p> : null}
       {data ? (
