@@ -1,0 +1,258 @@
+.page {
+  --bg: #0b1120;
+  --card: #0f172a;
+  --card-border: rgba(148, 163, 184, 0.2);
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --accent: #38bdf8;
+  --accent-strong: #0ea5e9;
+  --danger: #f87171;
+  --success: #4ade80;
+  background: radial-gradient(circle at top, #1e293b, #020617);
+  min-height: 100vh;
+  padding: 48px 16px 64px;
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans);
+}
+
+.main {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  border: 1px solid var(--card-border);
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 30px 80px rgba(2, 6, 23, 0.7);
+  backdrop-filter: blur(12px);
+}
+
+.overline {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.header h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  margin: 0;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  max-width: 640px;
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+.apiBadge {
+  align-self: flex-start;
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px 20px;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.apiBadge span {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.apiBadge strong {
+  font-size: 14px;
+  font-family: var(--font-geist-mono);
+  color: var(--accent);
+  word-break: break-all;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  border: 1px solid var(--card-border);
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 30px 80px rgba(2, 6, 23, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+.card h2 {
+  margin-bottom: 4px;
+  font-size: 1.3rem;
+}
+
+.card p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.form input[type="text"],
+.fileInput input[type="file"] {
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  background: rgba(2, 6, 23, 0.8);
+  color: var(--text-primary);
+  font-size: 1rem;
+  padding: 12px 14px;
+  font-family: var(--font-geist-mono);
+}
+
+.form button {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  color: #02101f;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.statusPanel {
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(2, 6, 23, 0.6);
+}
+
+.statusPanel[data-state="error"] {
+  border-color: rgba(248, 113, 113, 0.5);
+}
+
+.statusPanel[data-state="success"] {
+  border-color: rgba(74, 222, 128, 0.4);
+}
+
+.statusHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.statusHeader span {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.statusMsg {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.code {
+  background: rgba(2, 6, 23, 0.8);
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 0.8rem;
+  overflow-x: auto;
+  color: #e2e8f0;
+}
+
+.product {
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  background: rgba(8, 25, 51, 0.8);
+}
+
+.product img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+}
+
+.productLabel {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.product h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.productMeta {
+  margin: 4px 0 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .product {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product img {
+    width: 100%;
+    height: 180px;
+  }
+}
